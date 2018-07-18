@@ -31,14 +31,33 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        for (let i = 0; i < allFeeds.length; i++) {
+            describe('Feed #' + (i + 1) + ' URL', function() {
+                it('is defined', function() {
+                    expect(allFeeds[i].url).toBeDefined();
+                });
+                it('is not empty', function() {
+                    expect(allFeeds[i].url).not.toBe('');
+                });
+            });
 
+        };
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        for (let i = 0; i < allFeeds.length; i++) {
+            describe('Feed #' + (i + 1) + ' Name', function() {
+                it('is defined', function() {
+                    expect(allFeeds[i].name).toBeDefined();
+                });
+                it('is not empty', function() {
+                    expect(allFeeds[i].name).not.toBe('');
+                });
+            });
+        };
     });
-
 
     /* TODO: Write a new test suite named "The menu" */
 
