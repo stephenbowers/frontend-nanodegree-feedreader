@@ -9,42 +9,37 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-        for (let i = 0; i < allFeeds.length; i++) {
+        describe('Feed URLs', function() {
             // Loops through each feed in the allFeeds array
-            describe('Feed #' + (i + 1) + ' URL', function() {
-                it('is defined', function() {
-                    // checks if the feed has the url key defined
+            for (let i = 0; i < allFeeds.length; i++) {
+                it('is defined and not empty', function() {
+                    // Checks if the feed has the url key defined
                     expect(allFeeds[i].url).toBeDefined();
-                });
-                it('is not empty', function() {
-                    // checks if the feed has the url value not empty
+                    // Checks if the feed has the url value not empty
                     expect(allFeeds[i].url).not.toBe('');
                 });
-            });
+            };
+        });
 
-        };
-
-        for (let i = 0; i < allFeeds.length; i++) {
+        describe('Feed Names', function() {
             // Loops through each feed in the allFeeds array
-            describe('Feed #' + (i + 1) + ' Name', function() {
-                it('is defined', function() {
+            for (let i = 0; i < allFeeds.length; i++) {
+                it('is defined and not empty', function() {
                     // checks if the feed has the name key defined
                     expect(allFeeds[i].name).toBeDefined();
-                });
-                it('is not empty', function() {
                     // checks if the feed has the name value not empty
                     expect(allFeeds[i].name).not.toBe('');
                 });
-            });
-        };
+            };
+        });  
     });
 
     describe('The menu', function() {
         let menu = document.body;
         
         it('is hidden by default', function() {
-            // Check that the menu is hidden by default
-            expect(menu.className).toBe('menu-hidden');
+            // Check that the menu has the .menu-hidden class by default
+            expect(menu.classList.contains('menu-hidden')).toBe(true);
         });
     
          it('changes visibility when menu icon is clicked', function() {
@@ -52,25 +47,30 @@ $(function() {
 
             menuIcon.click(); // Click menu icon
             // Check that the menu is visible when clicked
-            expect(menu.className).not.toBe('menu-hidden');
+            expect(menu.classList.contains('menu-hidden')).toBe(false);
             menuIcon.click(); // Click menu icon
             // Check that the menu is not visible when clicked a second time
-            expect(menu.className).toBe('menu-hidden');
+            expect(menu.classList.contains('menu-hidden')).toBe(true);
          });
     });
 
     describe('Initial Entries', function() {
-        let feed = document.getElementsByClassName('feed')[0];
+        let feed;
+        let entries;
 
         // Call the loadFeed function to run before test starts
         beforeEach(function(done) {
-            loadFeed(0, done);
-            done();
+            loadFeed(0, function() {
+                // Select all the .entry items in the .feed array
+                feed = document.querySelector('.feed');
+                entries = feed.querySelectorAll('.entry');
+                done();
+            });
         });
         
         it('has at least a single .entry element within the .feed container', function(done) {
-            // Check that the .feed container array has at least 1 item
-            expect(feed.length).not.toBe(0);
+            // Check that the .feed array has at least 1 .entry item
+            expect(entries.length).toBeGreaterThan(0);
             done();
         });
     });
